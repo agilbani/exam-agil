@@ -76,9 +76,11 @@ const FirstScreen = () => {
             setLoading(false)
             Actions.second()
          } else {
+            setLoading(false)
             setError({
                ...error,
                isError: true,
+               isExpired: true,
                dataError: "Random Code Telah Expired."
             })
             setTimeout(() => {
@@ -148,13 +150,16 @@ const FirstScreen = () => {
             onChangeText={code => setState({...state, valueCode: code})}
             style={styles.txtInput}
          />
-         <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={submitCode}
-            style={styles.btnSubmit}
-         >
-            <Text style={{color: '#FFF', fontSize: 17}}>SUBMIT</Text>
-         </TouchableOpacity>
+         {
+            !error.isExpired &&
+            <TouchableOpacity
+               activeOpacity={0.8}
+               onPress={submitCode}
+               style={styles.btnSubmit}
+            >
+               <Text style={{color: '#FFF', fontSize: 17}}>SUBMIT</Text>
+            </TouchableOpacity>
+         }
          {
             error.isExpired && 
             <TouchableOpacity
